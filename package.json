@@ -1,0 +1,35 @@
+{
+  "name": "front-dinamico-final",
+  "version": "1.0.0",
+  "description": "Projeto de conclusão de modulo",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Altovisk09/Front-Dinamico-Projeto-Final.git"
+  },
+  "keywords": [
+    "Express",
+    "Node.js",
+    "Web, Projeto Final",
+    "Front-End",
+    "Dinâmico"
+  ],
+  "author": "Altovisk09",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Altovisk09/Front-Dinamico-Projeto-Final/issues"
+  },
+  "homepage": "https://github.com/Altovisk09/Front-Dinamico-Projeto-Final#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "mongoose": "^7.6.3",
+    "nodemon": "^3.0.1"
+  }
+}
