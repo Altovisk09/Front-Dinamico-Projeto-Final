@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
 
 const userController = {
   signup: (req, res) => {
-    let {username, email} = req.body;
+    let {name, username, email} = req.body;
     let securityPass = bcrypt.hashSync(req.body.password, 10)
     let resultValidation = validationResult(req)
 
@@ -13,7 +13,8 @@ const userController = {
         console.log(resultValidation.array()); 
     }else{
         const newUser = new User({
-            nome: `${username}`,
+            nome: `${name}`,
+            apelido: `${username}`,
             email: `${email }`,
             senha: `${securityPass}`,
             projetos: [],
@@ -31,7 +32,13 @@ const userController = {
     }
   },
   signin:(req, res) => {
+    let resultValidation = validationResult(req)
 
+    if(resultValidation.errors.length > 0){
+      console.log(resultValidation.array()); 
+    }else{
+      console.log(req.session.user);
+    }
   },
 };
 

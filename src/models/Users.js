@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema({
       unique: true, // Deve garantir que o nome seja único
       required: true,
     },
+    apelido: {
+      type: String,
+      unique: true,
+      required: true, 
+    },
     email: {
       type: String,
       unique: true, // Deve garantir que o email seja único

@@ -2,7 +2,8 @@
     const router = express.Router();
     const viewController = require('../controllers/viewController');
     const userController = require('../controllers/userController');
-    const validationRegister = require('../middlewares/singupValidation');
+    const validationRegister = require('../middlewares/signupValidation');
+    const validationLogin = require('../middlewares/signinValidation');
 
     router.get('/', viewController.index);
 
@@ -10,7 +11,7 @@
     router.post('/signup', validationRegister, userController.signup);
 
     router.get('/signin', viewController.signin);
-    router.post('/signin', userController.signin);
+    router.post('/signin', validationLogin, userController.signin);
 
     router.get('/projects', viewController.logged);
     module.exports = router;

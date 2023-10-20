@@ -2,6 +2,8 @@ const { body } = require('express-validator');
 const User = require('../models/users');
 
 const validation = [
+    body('name')
+        .notEmpty().withMessage('Insira seu nome'),
     body('username')
         .notEmpty().withMessage('Insira um nick para o usuário').bail()
         .isLength({ max: 10 }).withMessage('Máximo de caracteres permitidos (10)')

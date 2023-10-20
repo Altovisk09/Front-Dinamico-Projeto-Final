@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const dotenv = require('dotenv');
@@ -8,9 +9,19 @@ const connectToDatabase = require('./src/config/connectData')
 // Carrega variáveis de ambiente do arquivo .env
 dotenv.config();
 
+// Conecta o servidor ao banco de dados
 connectToDatabase();
 
 const app = express();
+
+// configurações de sessão 
+app.use(
+  session({
+    secret: process.env.SECRET_KEY, // Chave secreta para assinar a sessão
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // Configurações da view Engine
 app.set('view engine', 'ejs');
