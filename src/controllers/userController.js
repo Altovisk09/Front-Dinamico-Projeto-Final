@@ -22,7 +22,7 @@ const userController = {
       
           newUser.save()
             .then((user) => {
-            res.redirect('/projects')
+            res.redirect('/signup')
               console.log('Usuário cadastrado com sucesso:', user);
             })
             
@@ -37,7 +37,7 @@ const userController = {
     if(resultValidation.errors.length > 0){
       console.log(resultValidation.array()); 
     }else{
-      console.log(req.session.userLogged);
+      res.redirect('/projects');
     }
   },
 };
