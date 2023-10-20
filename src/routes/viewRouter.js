@@ -7,5 +7,6 @@
     router.get('/', viewController.index);
 
     router.get('/signup', viewController.signup);
-    
+    router.post('/signup', userController.teste);
+
     module.exports = router;
