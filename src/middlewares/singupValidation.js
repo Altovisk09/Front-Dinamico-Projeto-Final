@@ -4,7 +4,7 @@ const User = require('../models/users');
 const validation = [
     body('username')
         .notEmpty().withMessage('Insira um nick para o usuário').bail()
-        .isLength({ max: 15 }).withMessage('Máximo de caracteres permitidos (10)')
+        .isLength({ max: 10 }).withMessage('Máximo de caracteres permitidos (10)')
         .custom(async (value) => {
             const user = await User.findOne({ username: value });
             if (user) {
