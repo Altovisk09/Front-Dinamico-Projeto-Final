@@ -1,14 +1,16 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 const createError = require('http-errors');
-
-const app = express();
+const connectToDatabase = require('./src/config/connectData')
 
 // Carrega variáveis de ambiente do arquivo .env
 dotenv.config();
+
+connectToDatabase();
+
+const app = express();
 
 // Configurações da view Engine
 app.set('view engine', 'ejs');

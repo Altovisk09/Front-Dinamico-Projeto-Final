@@ -1,9 +1,11 @@
     const express = require('express');
     const router = express.Router();
     const viewController = require('../controllers/viewController');
+    const userController = require('../controllers/userController');
+
 
     router.get('/', viewController.index);
 
-    router.get('/singup', viewController.singup);
-
+    router.get('/signup', viewController.signup);
+    
     module.exports = router;
