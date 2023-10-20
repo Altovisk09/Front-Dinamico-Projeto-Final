@@ -28,21 +28,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get('/', (req, res) =>{
-  res.send('Pagina inicial');
-})
+//requisicao de rotas
+const viewRouter = require('./src/routes/viewRouter');
 
-// Lidar com erros
+// rotas
+app.use('/', viewRouter);
+
+
+// Lidar com erros 404
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
- // error handler
+ // tratamento de erros
  app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // renderizar pagina de erros
   res.status(err.status || 500);
   res.render('error');
 });
