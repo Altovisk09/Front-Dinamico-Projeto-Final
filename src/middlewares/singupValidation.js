@@ -6,7 +6,7 @@ const validation = [
         .notEmpty().withMessage('Insira um nick para o usuário').bail()
         .isLength({ max: 10 }).withMessage('Máximo de caracteres permitidos (10)')
         .custom(async (value) => {
-            const user = await User.findOne({ username: value });
+            const user = await User.findOne({ nome: value });
             if (user) {
                 throw new Error('O usuário já está em uso');
             }

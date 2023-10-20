@@ -5,26 +5,23 @@ const { validationResult } = require('express-validator');
 
 const userController = {
   signup: (req, res) => {
-    let {nameUser, emailUser} = req.body;
+    let {username, email} = req.body;
     let securityPass = bcrypt.hashSync(req.body.password, 10)
     let resultValidation = validationResult(req)
 
     if(resultValidation.errors.length > 0){
-        return res.render('signup', {
-            errors: locals.resultValidation.mapped(),
-            oldData: req.body
-        })
+        console.log(resultValidation.array()); 
     }else{
         const newUser = new User({
-            nome: `${nameUser}`,
-            email: `${emailUser}`,
+            nome: `${username}`,
+            email: `${email }`,
             senha: `${securityPass}`,
             projetos: [],
           });
       
           newUser.save()
             .then((user) => {
-            res.redirect('projects')
+            res.redirect('/projects')
               console.log('Usuário cadastrado com sucesso:', user);
             })
             
@@ -32,6 +29,9 @@ const userController = {
               console.error('Erro ao cadastrar o usuário:', error);
             });
     }
+  },
+  signin:(req, res) => {
+
   },
 };
 

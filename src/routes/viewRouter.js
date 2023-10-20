@@ -7,6 +7,10 @@
     router.get('/', viewController.index);
 
     router.get('/signup', viewController.signup);
-    router.post('/signup', validationRegister ,validation, userController.signup);
+    router.post('/signup', validationRegister, userController.signup);
 
+    router.get('/signin', viewController.signin);
+    router.post('/signin', userController.signin);
+
+    router.get('/projects', viewController.logged);
     module.exports = router;
