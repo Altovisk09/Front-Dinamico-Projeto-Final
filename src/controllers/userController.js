@@ -37,7 +37,7 @@ const userController = {
     if(resultValidation.errors.length > 0){
       console.log(resultValidation.array()); 
     }else{
-      console.log(req.session.user);
+      console.log(req.session.userLogged);
     }
   },
 };
