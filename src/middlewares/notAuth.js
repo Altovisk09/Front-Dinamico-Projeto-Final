@@ -1,8 +1,8 @@
-function notAuthenticated(req, res, next){
+function notAuth(req, res, next){
     if(!req.session.userLogged){
-        return next()
+        return res.redirect('/signup')
     }
-    res.redirect('/signup')
-};
+    next()
+}
 
-module.exports = notAuthenticated;
+module.exports= notAuth;

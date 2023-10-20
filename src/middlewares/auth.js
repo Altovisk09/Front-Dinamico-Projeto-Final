@@ -1,8 +1,8 @@
-function authenticated(req, res, next){
+function auth(req, res, next){
     if(req.session.userLogged){
-       return next()    
+        return res.redirect('/projects')
     }
-    res.redirect('/projects')
-};
+    next()
+}
 
-module.exports = authenticated;
+module.exports= auth;
