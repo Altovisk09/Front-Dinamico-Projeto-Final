@@ -42,6 +42,15 @@ const userController = {
       res.redirect('/projects');
     }
   },
+  updateUser: (req, res) => {
+
+  },
+  deleteUser: (req, res) => {
+
+  },
+  logout: (req, res) => {
+
+  },
    createTask: async (req, res, next) => {
     const { name, members, deadline, description } = req.body;
     const creator = req.session.userLogged.apelido;
@@ -79,6 +88,21 @@ const userController = {
         return next(error);
       });
   },
+  updateTask: (req, res) => {
+
+  },
+  DeleteTask: (req, res) => {
+
+  },
+  addMembers: (req, res) => {
+
+  },
+  removeMembers: (req, res) => {
+
+  },
+  changeAdmTask: (req, res) => {
+
+  }
 };
 
 module.exports = userController;

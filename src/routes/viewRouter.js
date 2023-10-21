@@ -5,7 +5,7 @@ const userController = require('../controllers/userController');
 const validationRegister = require('../middlewares/signupValidation');
 const validationLogin = require('../middlewares/signinValidation');
 const authenticated = require('../middlewares/auth');
-const notAuthenticated = require('../middlewares/notAuth')
+const notAuthenticated = require('../middlewares/notAuth');
 
 
 router.get('/', viewController.index);
@@ -17,5 +17,5 @@ router.get('/signin', authenticated, viewController.signin);
 router.post('/signin', authenticated, validationLogin, userController.signin);
 
 router.get('/projects', notAuthenticated, viewController.logged);
-router.post('/projects', notAuthenticated, userController.createTask)
+
 module.exports = router;

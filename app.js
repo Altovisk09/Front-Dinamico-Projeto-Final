@@ -44,10 +44,11 @@ app.use(cookieParser());
 
 //requisicao de rotas
 const viewRouter = require('./src/routes/viewRouter');
+const taskRouter = require('./src/routes/taskRouter'); 
 
 // rotas
 app.use('/', viewRouter);
-
+app.use('/projects', taskRouter);
 
 // Lidar com erros 404
 app.use(function(req, res, next) {
