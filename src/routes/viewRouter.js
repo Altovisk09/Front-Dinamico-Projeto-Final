@@ -17,5 +17,5 @@ router.get('/signin', authenticated, viewController.signin);
 router.post('/signin', authenticated, validationLogin, userController.signin);
 
 router.get('/projects', notAuthenticated, viewController.logged);
-
+router.post('/projects', notAuthenticated, userController.createTask)
 module.exports = router;

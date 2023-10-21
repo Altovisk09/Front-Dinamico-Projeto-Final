@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Criação de projetos</title>
     <link rel="stylesheet" href="/stylesheets/global.css">
 </head>
 <body>
-    <input type="text" value="<%= locals.user ? locals.user.name : null %>">
-    <input type="text" value="<%= locals.user ? locals.user.name : null %>">
-    <input type="text" value="<%= locals.user ? locals.user.name : null %>">
+    <header>
+
+    </header>
+    <main>
+        <section id="user-area">
+
+        </section>
+        <section id="form-task-modal">
+            <h1>Criação de tarefas</h1>
+            <div id="form-task-content">
+                <form action="/projects" method="post">
+                    <label for="name">Nome do projeto:</label>
+                    <input type="text" name="name" id="name" placeholder="Site E-commerce">
+                    <label for="members">Membros (opcional)</label>
+                    <input type="text" name="members" id="members" placeholder="username-123, username-456, username-789">
+                    <label for="deadline">Prazo de entrega</label>
+                    <input type="date" name="deadline" id="deadline" placeholder="27/12/2023">
+                    <label for="description">Descrição do projeto</label>
+                    <input type="text-area" name="description" id="description" maxlength="150" placeholder="Máximo de 150 caracteres">
+                <button type="submit">Criar Tarefa</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
 </body>
 </html>

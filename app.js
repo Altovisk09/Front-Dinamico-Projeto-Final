@@ -23,9 +23,6 @@ app.use(
   })
 );
 
-// Importação e utilização do middleware
-const sessionValidation = require('./middlewares/authLog');
-app.use(sessionValidation);
 
 // Configurações da view Engine
 app.set('view engine', 'ejs');

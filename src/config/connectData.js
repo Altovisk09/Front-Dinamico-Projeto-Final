@@ -4,6 +4,7 @@ const connectToDatabase = () => {
     mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  writeConcern: { w: 'majority' }
 });
 
 const db = mongoose.connection;

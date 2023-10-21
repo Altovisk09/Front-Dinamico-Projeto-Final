@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const projectsSchema = new mongoose.Schema({
-    name: {
+  name: {
     type: String,
     required: true,
   },
@@ -9,12 +9,20 @@ const projectsSchema = new mongoose.Schema({
     type: String,
     enum: ['pending', 'in progress', 'completed'],
     default: 'pending',
-},
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
+  },
+  members: [{ 
+    type: String,
     ref: 'User',
-    max: 4, 
+    max: 4,
   }],
+  creator: {
+    type: String, 
+    required: true,
+  },
+  deadline: {
+    type: Date,
+    required: true,
+  },
 });
 
 const Project = mongoose.model('Project', projectsSchema);
