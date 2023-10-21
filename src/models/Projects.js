@@ -15,7 +15,15 @@ const projectsSchema = new mongoose.Schema({
     ref: 'User',
     max: 4,
   }],
+  working: [{
+    type: String,
+    ref: 'User',
+  }],
   creator: {
+    type: String, 
+    required: true,
+  },
+  leader: {
     type: String, 
     required: true,
   },

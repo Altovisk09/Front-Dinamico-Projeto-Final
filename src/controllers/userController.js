@@ -52,8 +52,9 @@ const userController = {
 
   },
    createTask: async (req, res, next) => {
-    const { name, members, deadline, description } = req.body;
+    const { name, members, deadline, description} = req.body;
     const creator = req.session.userLogged.apelido;
+    const leader = req.session.userLogged.apelido;
   
     let membersList = [];
   
@@ -73,9 +74,11 @@ const userController = {
     const newTask = new Task({
       name,
       members: membersList,
+      working: [],
       deadline,
       description,
       creator,
+      leader,
     });
   
     newTask.save()
@@ -88,20 +91,20 @@ const userController = {
         return next(error);
       });
   },
-  updateTask: (req, res) => {
+  updateTask: () => {
 
   },
-  DeleteTask: (req, res) => {
+  DeleteTask: () => {
 
   },
-  addMembers: (req, res) => {
+  addMembers: () => {
 
   },
-  removeMembers: (req, res) => {
+  removeMembers: () => {
 
   },
-  changeAdmTask: (req, res) => {
-
+  changeAdmTask: () => {
+    
   }
 };
 
