@@ -51,15 +51,15 @@ const userController = {
   logout: (req, res) => {
 
   },
-   createTask: async (req, res, next) => {
+   createTask:  async (req, res, next) => {
     const { name, members, deadline, description} = req.body;
     const creator = req.session.userLogged.apelido;
-    const leader = req.session.userLogged.apelido;
+    const leader = creator;
   
     let membersList = [];
   
     if (members) {
-      // Divida os membros por vírgula e remova os espaços em branco
+      // Divide os membros por vírgula e remova os espaços em branco
       membersList = members.split(',').map(member => member.trim());
   
       // Verifica se o criador já está na lista de membros
@@ -67,29 +67,40 @@ const userController = {
         membersList.push(creator);
       }
     } else {
-      // Se não houver membros, defina o criador como o único membro
+      // Se não houver membros, define o criador como o único membro
       membersList = [creator];
     }
   
-    const newTask = new Task({
-      name,
-      members: membersList,
-      working: [],
-      deadline,
-      description,
-      creator,
-      leader,
-    });
-  
-    newTask.save()
-      .then(task => {
-        console.log('Tarefa criada com sucesso:', task);
-        res.redirect('/projects');
-      })
-      .catch(error => {
-        console.error('Erro ao criar a tarefa:', error);
-        return next(error);
+    try {
+      const newTask = new Task({
+        name,
+        members: membersList,
+        working: [],
+        deadline,
+        description,
+        creator,
+        leader,
       });
+  
+      const task = await newTask.save();
+      const taskID = task._id;
+  
+      const user = await User.findOne({ apelido: creator });
+  
+      if (user) {
+        user.projetos.push(taskID);
+        const updateUser = await user.save();
+        console.log('Tarefa atrelada aos envolvidos', updateUser);
+      } else {
+        console.error('Usuário não encontrado.');
+      }
+  
+      console.log('Tarefa criada com sucesso:', task);
+      res.redirect('/projects');
+    } catch (error) {
+      console.error('Erro ao criar a tarefa:', error);
+      return next(error);
+    }
   },
   updateTask: () => {
 
