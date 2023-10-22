@@ -31,6 +31,11 @@ const projectsSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  description: {
+    type: String,
+    maxlength: 150, 
+    required: true,
+  }
 });
 
 const Project = mongoose.model('Project', projectsSchema);

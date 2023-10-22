@@ -51,17 +51,17 @@ const userController = {
   logout: (req, res) => {
 
   },
-   createTask:  async (req, res, next) => {
+  createTask: async (req, res, next) => {
     const { name, members, deadline, description} = req.body;
     const creator = req.session.userLogged.apelido;
     const leader = creator;
-  
+
     let membersList = [];
-  
+
     if (members) {
-      // Divide os membros por vírgula e remova os espaços em branco
+      // Divide os membros por vírgula e remove os espaços em branco
       membersList = members.split(',').map(member => member.trim());
-  
+
       // Verifica se o criador já está na lista de membros
       if (!membersList.includes(creator)) {
         membersList.push(creator);
@@ -70,7 +70,7 @@ const userController = {
       // Se não houver membros, define o criador como o único membro
       membersList = [creator];
     }
-  
+
     try {
       // Valida se os membros existem no db
       const users = await User.find({ apelido: { $in: membersList } }, 'apelido');
@@ -104,20 +104,105 @@ const userController = {
       return next(error);
     }
   },
-  updateTask: () => {
-    
-  },
-  DeleteTask: () => {
+  updateTask: async (req, res) => {
+    const taskId = req.params.id;
+    const { name, description, deadline } = req.body;
 
-  },
-  addMembers: () => {
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        { name, description, deadline },
+        { new: true } // Retorna o documento atualizado
+      );
 
-  },
-  removeMembers: () => {
+      if (!updatedTask) {
+        return console.error('Tarefa não encontrada');
+      }
+      res.redirect('/projects');
 
+    } catch (error) {
+      console.error('Erro ao atualizar a tarefa:', error);
+      console.error('Erro interno do servidor');
+    }
   },
-  changeAdmTask: () => {
-    
+  DeleteTask: async (req, res) => {
+    const taskId = req.params.id;
+
+    try {
+      const deletedTask = await Task.findByIdAndDelete(taskId);
+
+      if (!deletedTask) {
+        return console.error('Tarefa não encontrada');
+      }
+
+      console.log('Tarefa excluída com sucesso');
+    } catch (error) {
+      console.error('Erro ao excluir a tarefa:', error);
+      console.error('Erro interno do servidor');
+    }
+  },
+  addMembers: async (req, res) => {
+    const taskId = req.params.id;
+    const { members } = req.body;
+
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        { $addToSet: { members: members } },
+        { new: true }
+      );
+
+      if (!updatedTask) {
+        return console.error('Tarefa não encontrada');
+      }
+
+      console.log('Membros adicionados com sucesso');
+    } catch (error) {
+      console.error('Erro ao adicionar membros à tarefa:', error);
+      console.error('Erro interno do servidor');
+    }
+  },
+  removeMembers: async (req, res) => {
+    const taskId = req.params.id;
+    const { members } = req.body;
+
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        { $pullAll: { members: members } },
+        { new: true }
+      );
+
+      if (!updatedTask) {
+        return console.error('Tarefa não encontrada');
+      }
+
+      console.log('Membros removidos com sucesso');
+    } catch (error) {
+      console.error('Erro ao remover membros da tarefa:', error);
+      console.error('Erro interno do servidor');
+    }
+  },
+  changeAdmTask: async (req, res) => {
+    const taskId = req.params.id;
+    const { leader } = req.body;
+
+    try {
+      const updatedTask = await Task.findByIdAndUpdate(
+        taskId,
+        { leader: leader },
+        { new: true }
+      );
+
+      if (!updatedTask) {
+        return console.error('Tarefa não encontrada');
+      }
+
+      console.log('Administrador da tarefa alterado com sucesso');
+    } catch (error) {
+      console.error('Erro ao alterar o administrador da tarefa:', error);
+      console.error('Erro interno do servidor');
+    }
   }
 };
 
