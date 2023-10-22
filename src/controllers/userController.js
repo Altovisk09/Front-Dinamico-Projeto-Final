@@ -72,6 +72,15 @@ const userController = {
     }
   
     try {
+      // Valida se os membros existem no db
+      const users = await User.find({ apelido: { $in: membersList } }, 'apelido');
+
+      // Verifica se todos os membros na lista foram encontrados no db
+      if (users.length !== membersList.length) {
+        const missingMembers = membersList.filter(member => !users.some(user => user.apelido === member));
+        return console.error('Usuários inexistentes:', missingMembers);
+      }
+
       const newTask = new Task({
         name,
         members: membersList,
@@ -81,20 +90,13 @@ const userController = {
         creator,
         leader,
       });
-  
+
       const task = await newTask.save();
       const taskID = task._id;
-  
-      const user = await User.findOne({ apelido: creator });
-  
-      if (user) {
-        user.projetos.push(taskID);
-        const updateUser = await user.save();
-        console.log('Tarefa atrelada aos envolvidos', updateUser);
-      } else {
-        console.error('Usuário não encontrado.');
-      }
-  
+
+      // Associa o ID da tarefa a todos os membros
+      await User.updateMany({ apelido: { $in: membersList } }, { $push: { projetos: taskID } });
+
       console.log('Tarefa criada com sucesso:', task);
       res.redirect('/projects');
     } catch (error) {
