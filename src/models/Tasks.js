@@ -1,24 +1,20 @@
 const mongoose = require('mongoose');
 
-const projectsSchema = new mongoose.Schema({
+const tasksSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  members: [{ 
+  state: {
     type: String,
-    ref: 'User',
-    max: 4,
-  }],
+    enum: ['pending', 'in progress', 'completed'],
+    default: 'pending',
+  },
   working: [{
     type: String,
     ref: 'User',
   }],
   creator: {
-    type: String, 
-    required: true,
-  },
-  leader: {
     type: String, 
     required: true,
   },
@@ -28,11 +24,11 @@ const projectsSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    maxlength: 150, 
+    maxlength: 100, 
     required: true,
   }
 });
 
-const Project = mongoose.model('Project', projectsSchema);
+const Project = mongoose.model('Project', tasksSchema);
 
 module.exports = Project;

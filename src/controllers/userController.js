@@ -1,5 +1,5 @@
 const User = require('../models/users');
-const Task = require('../models/Projects');
+const Project = require('../models/Projects');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const createError = require('http-errors');
@@ -105,8 +105,8 @@ const userController = {
     res.clearCookie('futuroCookie');
     res.redirect('/')
   },
-  createTask: async (req, res, next) => {
-    const { name, members, deadline, description} = req.body;
+  createProject: async (req, res, next) => {
+    const { name, members, description} = req.body;
     const creator = req.session.userLogged.apelido;
     const leader = creator;
 
@@ -135,21 +135,20 @@ const userController = {
         return console.error('Usuários inexistentes:', missingMembers);
       }
 
-      const newTask = new Task({
+      const newProject = new Project({
         name,
         members: membersList,
-        working: [],
-        deadline,
         description,
         creator,
         leader,
+        tasks: [],
       });
 
-      const task = await newTask.save();
-      const taskID = task._id;
+      const Project = await newProject.save();
+      const ProjectID = Project._id;
 
       // Associa o ID da tarefa a todos os membros
-      await User.updateMany({ apelido: { $in: membersList } }, { $push: { projetos: taskID } });
+      await User.updateMany({ apelido: { $in: membersList } }, { $push: { projetos: ProjectID } });
 
       console.log('Tarefa criada com sucesso:', task);
       res.redirect('/projects');
@@ -158,18 +157,18 @@ const userController = {
       return next(error);
     }
   },
-  updateTask: async (req, res) => {
-    const taskId = req.params.id;
-    const { name, description, deadline } = req.body;
+  updateProject: async (req, res) => {
+    const ProjectId = req.params.id;
+    const { name, description } = req.body;
 
     try {
-      const updatedTask = await Task.findByIdAndUpdate(
-        taskId,
-        { name, description, deadline },
+      const updatedProject = await Project.findByIdAndUpdate(
+        ProjectId,
+        { name, description },
         { new: true } // Retorna o documento atualizado
       );
 
-      if (!updatedTask) {
+      if (!updatedProject) {
         return console.error('Tarefa não encontrada');
       }
       res.redirect('/projects');
@@ -179,11 +178,11 @@ const userController = {
       console.error('Erro interno do servidor');
     }
   },
-  DeleteTask: async (req, res) => {
-    const taskId = req.params.id;
+  DeleteProject: async (req, res) => {
+    const ProjectId = req.params.id;
 
     try {
-      const deletedTask = await Task.findByIdAndDelete(taskId);
+      const deletedTask = await Project.findByIdAndDelete(ProjectId);
 
       if (!deletedTask) {
         return console.error('Tarefa não encontrada');
@@ -196,17 +195,17 @@ const userController = {
     }
   },
   addMembers: async (req, res) => {
-    const taskId = req.params.id;
+    const ProjectId = req.params.id;
     const { members } = req.body;
 
     try {
-      const updatedTask = await Task.findByIdAndUpdate(
-        taskId,
+      const updatedProject = await Project.findByIdAndUpdate(
+        ProjectId,
         { $addToSet: { members: members } },
         { new: true }
       );
 
-      if (!updatedTask) {
+      if (!updatedProject) {
         return console.error('Tarefa não encontrada');
       }
 
@@ -217,17 +216,17 @@ const userController = {
     }
   },
   removeMembers: async (req, res) => {
-    const taskId = req.params.id;
+    const ProjectId = req.params.id;
     const { members } = req.body;
 
     try {
-      const updatedTask = await Task.findByIdAndUpdate(
-        taskId,
+      const updatedProject = await Project.findByIdAndUpdate(
+        ProjectId,
         { $pullAll: { members: members } },
         { new: true }
       );
 
-      if (!updatedTask) {
+      if (!updatedProject) {
         return console.error('Tarefa não encontrada');
       }
 
@@ -237,18 +236,18 @@ const userController = {
       console.error('Erro interno do servidor');
     }
   },
-  changeAdmTask: async (req, res) => {
-    const taskId = req.params.id;
+  changeAdmProject: async (req, res) => {
+    const ProjectId = req.params.id;
     const { leader } = req.body;
 
     try {
-      const updatedTask = await Task.findByIdAndUpdate(
-        taskId,
+      const updatedProject = await Project.findByIdAndUpdate(
+        ProjectId,
         { leader: leader },
         { new: true }
       );
 
-      if (!updatedTask) {
+      if (!updatedProject) {
         return console.error('Tarefa não encontrada');
       }
 
