@@ -99,7 +99,11 @@ const userController = {
     }
   },
   logout: async (req, res) => {
-    
+    req.session.destroy(err=>{
+      console.error('Erro ao finalizar sessão')
+    })
+    res.clearCookie('futuroCookie');
+    res.redirect('/')
   },
   createTask: async (req, res, next) => {
     const { name, members, deadline, description} = req.body;
