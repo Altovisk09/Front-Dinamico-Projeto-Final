@@ -42,14 +42,38 @@ const userController = {
       res.redirect('/projects');
     }
   },
-  updateUser: (req, res) => {
+  updateUser: async (req, res) => {
+    const userId = req.session.userLogged._id;
+    const { name, username, email} = req.body;
+
+    try{
+      const userUpdate = User.findByIdAndUpdate(userID, {
+        nome: name, 
+        apelido: username,
+        email: email,
+      },{
+        new: true
+      });
+      if(!updateUser){
+        return console.error('Usuario não encontrado');
+      }else{
+        console.log('Usuario atualizado', updateUser)
+      }
+    }catch(err){
+      console.error('Erro ao atualizar o usuário:', error);
+    }
+  },
+  changePass: async (req, res) => {
+    const userId = req.session.userLogged._id;
+    const password = req.body.securityPass;
+
 
   },
-  deleteUser: (req, res) => {
+  deleteUser: async (req, res) => {
 
   },
-  logout: (req, res) => {
-
+  logout: async (req, res) => {
+    
   },
   createTask: async (req, res, next) => {
     const { name, members, deadline, description} = req.body;
