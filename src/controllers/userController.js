@@ -3,6 +3,7 @@ const Project = require('../models/Projects');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const createError = require('http-errors');
+const Task = require('../models/Tasks');
 
 const userController = {
   signup: (req, res) => {
@@ -256,7 +257,11 @@ const userController = {
       console.error('Erro ao alterar o administrador da tarefa:', error);
       console.error('Erro interno do servidor');
     }
-  }
+  },
+  createTask: (req, res) => {
+    const projectId = req.params.id;
+    const project = Project.findById(projectId)
+  },
 };
 
 module.exports = userController;

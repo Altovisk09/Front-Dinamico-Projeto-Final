@@ -30,7 +30,12 @@ const projectsSchema = new mongoose.Schema({
     type: String,
     maxlength: 150, 
     required: true,
-  }
+  },
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task',
+    max: 15,
+  }]
 });
 
 const Project = mongoose.model('Project', projectsSchema);
