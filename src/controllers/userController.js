@@ -258,9 +258,35 @@ const userController = {
       console.error('Erro interno do servidor');
     }
   },
-  createTask: (req, res) => {
+  createTask: async (req, res) => {
     const projectId = req.params.id;
-    const project = Project.findById(projectId)
+    try{
+      const project = await Project.findById(projectId);
+      if(!project){
+        return console.error('Projeto não encontrado')
+      }
+      if(project.tasks.length >= 15){
+      return  console.error('Limite de tarefas do projeto atingido (15)')
+      }
+      let {name, deadline, description} = req.body;
+      const creatorTask = req.session.userLogged.apelido;
+
+      const newTask = new Task({
+        name: name,
+        creator: creatorTask,
+        deadline: deadline, 
+        description: description,      
+      });
+
+      //Salva a nova tarefa e atrela ao projeto
+      const task = await newTask.save();
+      project.tasks.push(task._id);
+        await project.save();
+
+
+    }catch(err){
+      console.error('Erro ao criar nova tarefa',err)
+    }
   },
 };
 
