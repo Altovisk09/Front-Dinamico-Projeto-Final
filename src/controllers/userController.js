@@ -60,14 +60,29 @@ const userController = {
         console.log('Usuario atualizado', updateUser)
       }
     }catch(err){
-      console.error('Erro ao atualizar o usuário:', error);
+      console.error('Erro ao atualizar o usuário:', err);
     }
   },
   changePass: async (req, res) => {
     const userId = req.session.userLogged._id;
-    const password = req.body.securityPass;
+    const { currentPass, newPass } = req.body;
 
+    try{
+      const user = await User.findById(userId);
 
+      const valdationPass = bcrypt.compareSync(currentPass, user.senha);
+      if(!valdationPass){
+        console.error('Senha inserida não está correta')
+      }else{
+        const hashPass = bcrypt.hashSync(newPass, 10);
+        user.senha = hashPass;
+        await user.save();
+
+        console.log('Senha atualizada com sucesso', hashPass);
+      }
+    }catch(err){
+      console.error('Erro ao atualizar o usuário:', err);
+    }
   },
   deleteUser: async (req, res) => {
 
