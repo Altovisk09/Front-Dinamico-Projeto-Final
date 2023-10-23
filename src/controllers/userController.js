@@ -85,7 +85,18 @@ const userController = {
     }
   },
   deleteUser: async (req, res) => {
+    const userId = req.session.userLogged._id;
 
+    try{
+      const deleteUser = await User.findByIdAndDelete(userId);
+      if(!deleteUser){
+        console.log('Erro ao apagar usuario ')
+      }
+
+      console.log(`Usuario de username: ${deleteUser.apelido} deletado com sucesso.`)
+    }catch(err){
+      console.error('Erro ao apagar usuario')
+    }
   },
   logout: async (req, res) => {
     
