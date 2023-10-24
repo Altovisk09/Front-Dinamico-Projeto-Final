@@ -300,11 +300,8 @@ const userController = {
   
       // Busque as tarefas associadas a esse projeto
       const tasks = await Task.find({ _id: { $in: project.tasks } });
-      if(!tasks){
-        tasks = [];
-      }
+      
       res.render('projects', { userProjects, project, tasks });
-
     } catch (error) {
       console.error('Erro ao buscar tarefas do projeto:', error);
       return res.status(500).send('Erro interno do servidor');
