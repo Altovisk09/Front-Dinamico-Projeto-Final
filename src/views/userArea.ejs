@@ -37,7 +37,14 @@
                         <li class="list-group-item"><a href="/projects/<%= project._id %>"><%= project.name %></a></li>
                     <% }); %>
                 </ul>
-                <a href="/projects/create-project" class="btn btn-primary mt-3">Criar Novo Projeto</a>
+                <div class="row justify-content-end">
+                    <a href="/projects/create-project" class="btn btn-primary mt-3">Criar Novo Projeto</a>
+                    <a href="/projects/:id/update-project" class="btn btn-primary mt-3">Editar Projeto</a>
+                    <a href="/projects/:id/delete-project" class="btn btn-primary mt-3">Apagar Projeto</a>
+                    <a href="/projects/:id/add-members" class="btn btn-primary mt-3">Adicionar Membros</a>
+                    <a href="/projects/:id/remove-members" class="btn btn-primary mt-3">Apagar Membros</a>
+                    <a href="/projects/:id/change-adm" class="btn btn-primary mt-3">Trocar Líder do Projeto</a>
+                </div>
             </aside>
             
             <main class="col-md-9">
@@ -76,8 +83,11 @@
                         </ul>
                     </div>
                 </div> 
-                <a href="/projects/<%= project ? project._id : 'null' %>/create-task" class="btn btn-success">Criar Nova Tarefa</a>
-
+                <div class="d-flex justify-content-between">
+                    <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Criar Nova Tarefa</a>
+                    <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Editar Tarefa</a>
+                    <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Apagar Tarefa</a>
+                </div>
             </main>
         </div>
     </div>
