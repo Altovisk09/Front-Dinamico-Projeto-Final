@@ -20,4 +20,6 @@ router.get('/projects', notAuthenticated, viewController.logged);
 
 router.get('/profile', notAuthenticated, viewController.profile);
 
+router.get('/logout', notAuthenticated, userController.logout);
+
 module.exports = router;

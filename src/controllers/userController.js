@@ -100,12 +100,15 @@ const userController = {
     }
   },
   logout: async (req, res) => {
-    req.session.destroy(err=>{
-      console.error('Erro ao finalizar sessão')
-    })
-    res.clearCookie('futuroCookie');
-    res.redirect('/')
-  },
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Erro ao finalizar sessão:', err);
+    } else {
+      res.clearCookie('futuroCookie');
+      res.redirect('/');
+    }
+  });
+},
   createProject: async (req, res, next) => {
     const { name, members, description} = req.body;
     const creator = req.session.userLogged.apelido;
@@ -145,13 +148,13 @@ const userController = {
         tasks: [],
       });
 
-      const Project = await newProject.save();
-      const ProjectID = Project._id;
+      const project = await newProject.save();
+      const projectID = Project._id;
 
       // Associa o ID da tarefa a todos os membros
-      await User.updateMany({ apelido: { $in: membersList } }, { $push: { projetos: ProjectID } });
+      await User.updateMany({ apelido: { $in: membersList } }, { $push: { projetos: projectID } });
 
-      console.log('Tarefa criada com sucesso:', task);
+      console.log('Tarefa criada com sucesso:', project);
       res.redirect('/projects');
     } catch (error) {
       console.error('Erro ao criar a tarefa:', error);
@@ -301,7 +304,7 @@ const userController = {
       // Busque as tarefas associadas a esse projeto
       const tasks = await Task.find({ _id: { $in: project.tasks } });
       
-      res.render('projects', { userProjects, project, tasks });
+      res.render('userArea', { userProjects, project, tasks });
     } catch (error) {
       console.error('Erro ao buscar tarefas do projeto:', error);
       return res.status(500).send('Erro interno do servidor');

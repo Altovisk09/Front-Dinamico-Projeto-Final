@@ -23,7 +23,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">Configurações</a>
-                    <a class="dropdown-item" href="\logout">Sair</a>
+                    <a class="dropdown-item" href="/logout">Sair</a>
                 </div>
             </li>
         </ul>
@@ -42,6 +42,42 @@
             
             <main class="col-md-9">
                 
+                <div class="row">
+                    <!-- Coluna "Pendente" -->
+                    <div class="col-md-4">
+                        <h3>Pendente</h3>
+                        <hr>
+                        <!-- Lista de tarefas pendentes -->
+                        <ul>
+                            <li>Tarefa 1</li>
+                            <li>Tarefa 2</li>
+                            <li>Tarefa 3</li>
+                        </ul>
+                    </div>
+
+                    <!-- Coluna "Em Andamento" -->
+                    <div class="col-md-4">
+                        <h3>Em Andamento</h3>
+                        <hr>
+                        <!-- Lista de tarefas em andamento -->
+                        <ul>
+                            <li>Tarefa 4</li>
+                            <li>Tarefa 5</li>
+                        </ul>
+                    </div>
+
+                    <!-- Coluna "Concluída" -->
+                    <div class="col-md-4">
+                        <h3>Concluída</h3>
+                        <hr>
+                        <!-- Lista de tarefas concluídas -->
+                        <ul>
+                            <li>Tarefa 6</li>
+                        </ul>
+                    </div>
+                </div> 
+                <a href="/projects/<%= project ? project._id : 'null' %>/create-task" class="btn btn-success">Criar Nova Tarefa</a>
+
             </main>
         </div>
     </div>

@@ -15,9 +15,8 @@ const viewController = {
           const user = req.session.userLogged.apelido;
           console.log('ID do usuário logado:', req.session.userLogged._id);
           const userProjects = await Project.find({ members: user });
-          const project = null;
           console.log('projetos do usuário logado:',userProjects)  
-          res.render('projects', { userProjects, project });
+          res.render('projects', { userProjects });
         } catch (error) {
           console.error('Erro ao carregar projetos do usuário:', error);
         }
