@@ -20,6 +20,9 @@ const viewController = {
         } catch (error) {
           console.error('Erro ao carregar projetos do usuário:', error);
         }
+      },
+      profile: (req, res) => {
+        res.render('profile')
       }
 }
 

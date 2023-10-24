@@ -18,4 +18,6 @@ router.post('/signin', authenticated, validationLogin, userController.signin);
 
 router.get('/projects', notAuthenticated, viewController.logged);
 
+router.get('/profile', notAuthenticated, viewController.profile);
+
 module.exports = router;

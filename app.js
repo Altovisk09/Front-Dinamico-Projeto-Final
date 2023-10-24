@@ -23,7 +23,6 @@ app.use(
   })
 );
 
-
 // Configurações da view Engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './src/views'));
@@ -44,11 +43,13 @@ app.use(cookieParser());
 
 //requisicao de rotas
 const viewRouter = require('./src/routes/viewRouter');
-const taskRouter = require('./src/routes/taskRouter'); 
+const projectRouter = require('./src/routes/taskRouter');
+const userRouter = require('./src/routes/userRouter'); 
 
 // rotas
 app.use('/', viewRouter);
-app.use('/projects', taskRouter);
+app.use('/projects', projectRouter);
+app.use('/user', userRouter);
 
 // Lidar com erros 404
 app.use(function(req, res, next) {

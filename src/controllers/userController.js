@@ -48,7 +48,7 @@ const userController = {
     const { name, username, email} = req.body;
 
     try{
-      const userUpdate = User.findByIdAndUpdate(userID, {
+      const updateUser = User.findByIdAndUpdate(userId, {
         nome: name, 
         apelido: username,
         email: email,
@@ -179,7 +179,7 @@ const userController = {
       console.error('Erro interno do servidor');
     }
   },
-  DeleteProject: async (req, res) => {
+  deleteProject: async (req, res) => {
     const ProjectId = req.params.id;
 
     try {
@@ -282,8 +282,6 @@ const userController = {
       const task = await newTask.save();
       project.tasks.push(task._id);
         await project.save();
-
-
     }catch(err){
       console.error('Erro ao criar nova tarefa',err)
     }
