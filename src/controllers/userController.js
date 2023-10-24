@@ -289,18 +289,22 @@ const userController = {
   getTasks: async (req, res) => {
     try {
       const projectId = req.params.id;
-  
+      const user = req.session.userLogged.apelido;
+
       // Busque o projeto pelo ID
       const project = await Project.findById(projectId);
-  
+      const userProjects = await Project.find({ members: user });
       if (!project) {
         return res.status(404).send('Projeto não encontrado');
       }
   
       // Busque as tarefas associadas a esse projeto
       const tasks = await Task.find({ _id: { $in: project.tasks } });
-  
-      res.render('project', { project, tasks });
+      if(!tasks){
+        tasks = [];
+      }
+      res.render('projects', { userProjects, project, tasks });
+
     } catch (error) {
       console.error('Erro ao buscar tarefas do projeto:', error);
       return res.status(500).send('Erro interno do servidor');
