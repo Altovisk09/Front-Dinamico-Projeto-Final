@@ -286,6 +286,26 @@ const userController = {
       console.error('Erro ao criar nova tarefa',err)
     }
   },
+  getTasks: async (req, res) => {
+    try {
+      const projectId = req.params.id;
+  
+      // Busque o projeto pelo ID
+      const project = await Project.findById(projectId);
+  
+      if (!project) {
+        return res.status(404).send('Projeto não encontrado');
+      }
+  
+      // Busque as tarefas associadas a esse projeto
+      const tasks = await Task.find({ _id: { $in: project.tasks } });
+  
+      res.render('project', { project, tasks });
+    } catch (error) {
+      console.error('Erro ao buscar tarefas do projeto:', error);
+      return res.status(500).send('Erro interno do servidor');
+    }
+  },
 };
 
 module.exports = userController;

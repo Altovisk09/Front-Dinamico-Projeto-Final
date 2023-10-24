@@ -28,7 +28,6 @@ const validation = [
 
                 // Salvar informações na sessão do lado do servidor
                 req.session.userLogged = userWithoutPassword;
-                
                 return true;
             }
         }),

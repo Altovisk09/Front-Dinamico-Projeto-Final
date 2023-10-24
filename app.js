@@ -40,6 +40,14 @@ app.use((err, req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use((req, res, next) => {
+  if (req.session.userLogged) {
+    res.locals.user = req.session.userLogged;
+  } else {
+    res.locals.user = null; 
+  }
+  next();
+});
 
 //requisicao de rotas
 const viewRouter = require('./src/routes/viewRouter');
