@@ -37,7 +37,42 @@
                         <li class="list-group-item"><a href="/projects/<%= project._id %>"><%= project.name %></a></li>
                     <% }); %>
                 </ul>
-                <a href="/projects/create-project" class="btn btn-primary mt-3">Criar Novo Projeto</a>
+                <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#createProject">Criar Novo Projeto</button>
+
+                <div class="modal fade" id="createProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Criar Projeto</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/projects/create-project" method="POST">
+                                <div class="mb-3">
+                                  <label for="projectName" class="form-label">Nome do Projeto</label>
+                                  <input type="text" class="form-control" id="projectName" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="projectDeadline" class="form-label">Data de Entrega</label>
+                                    <input type="date" class="form-control" id="projectDeadline" name="deadline">
+                                  </div>
+                                <div class="mb-3">
+                                  <label for="projectDescription" class="form-label">Descrição</label>
+                                  <textarea class="form-control" id="projectDescription" name="description"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="projectMembers" class="form-label">Membros (separados por vírgula)</label>
+                                  <input type="text" class="form-control" id="projectMembers" name="members">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-primary">Confirmar</button>
+                        </div>
+                    </form>
+                      </div>
+                    </div>
+                  </div>
             </aside>
             
             <main class="col-md-9">

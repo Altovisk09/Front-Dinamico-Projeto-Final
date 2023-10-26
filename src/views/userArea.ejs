@@ -38,15 +38,103 @@
                     <% }); %>
                 </ul>
                 <div class="row justify-content-end">
-                    <a href="/projects/create-project" class="btn btn-primary mt-3">Criar Novo Projeto</a>
-                    <a href="/projects/:id/update-project" class="btn btn-primary mt-3">Editar Projeto</a>
-                    <a href="/projects/:id/delete-project" class="btn btn-primary mt-3">Apagar Projeto</a>
-                    <a href="/projects/:id/add-members" class="btn btn-primary mt-3">Adicionar Membros</a>
-                    <a href="/projects/:id/remove-members" class="btn btn-primary mt-3">Apagar Membros</a>
-                    <a href="/projects/:id/change-adm" class="btn btn-primary mt-3">Trocar Líder do Projeto</a>
+                    <button href="/projects/:id/update-project" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#updateProject">Editar Projeto</button>
+                    <button href="/projects/:id/delete-project" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#deleteProject">Apagar Projeto</button>
+                    <button href="/projects/:id/add-members" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addMembers">Adicionar Membros</button>
+                    <button href="/projects/:id/remove-members" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#removeMembers">Apagar Membros</button>
+                    <button href="/projects/:id/change-adm" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#changeAdm">Trocar Líder do Projeto</button>
                 </div>
+                  <div class="modal fade" id="updateProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Atualizar Projeto</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            const { name, description, deadline} = req.body; 
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="deleteProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Tem certeza que deseja apagar o projeto?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="addMembers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Membros</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            const { members } = req.body;
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="removeMembers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Remover Membros</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            const { members } = req.body;
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal fade" id="changeAdm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Mudar Lider do Projeto</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            const { leader } = req.body;
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </aside>
-            
+
             <main class="col-md-9">
                 
                 <div class="row">

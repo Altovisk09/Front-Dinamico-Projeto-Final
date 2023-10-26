@@ -110,7 +110,7 @@ const userController = {
   });
 },
   createProject: async (req, res, next) => {
-    const { name, members, description} = req.body;
+    const { name, members, description, deadline} = req.body;
     const creator = req.session.userLogged.apelido;
     const leader = creator;
 
@@ -141,6 +141,7 @@ const userController = {
 
       const newProject = new Project({
         name,
+        deadline,
         members: membersList,
         description,
         creator,
@@ -168,7 +169,7 @@ const userController = {
     try {
       const updatedProject = await Project.findByIdAndUpdate(
         ProjectId,
-        { name, description },
+        { name, description, deadline },
         { new: true } // Retorna o documento atualizado
       );
 
