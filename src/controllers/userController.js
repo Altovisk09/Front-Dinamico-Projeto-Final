@@ -194,9 +194,10 @@ const userController = {
       }
 
       console.log('Tarefa excluída com sucesso');
+      res.redirect('/projects');
+
     } catch (error) {
       console.error('Erro ao excluir a tarefa:', error);
-      console.error('Erro interno do servidor');
     }
   },
   addMembers: async (req, res) => {
