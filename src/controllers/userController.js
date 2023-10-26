@@ -274,25 +274,37 @@ const userController = {
     }
   },
   changeAdmProject: async (req, res) => {
-    const ProjectId = req.params.id;
+    const projectId = req.params.id;
     const { leader } = req.body;
-
-    try {
-      const updatedProject = await Project.findByIdAndUpdate(
-        ProjectId,
-        { leader: leader },
-        { new: true }
-      );
-
-      if (!updatedProject) {
-        return console.error('Tarefa não encontrada');
-      }
-
-      console.log('Administrador da tarefa alterado com sucesso');
-    } catch (error) {
-      console.error('Erro ao alterar o administrador da tarefa:', error);
-      console.error('Erro interno do servidor');
+    const project = await Project.findById(projectId);
+  
+    if (!project) {
+      return console.error('Projeto não encontrado.');
     }
+  
+    if (project.leader !== req.session.userLogged.apelido) {
+      return console.error('Você não tem permissão para alterar o administrador deste projeto.');
+    }
+    if (project.leader === leader) {
+      return console.error('Você não pode se tornar líder do projeto atual.');
+    }
+  
+    if (!project.members.includes(leader)) {
+      return console.error('O novo líder não é um membro deste projeto.');
+    }
+  
+    const updatedProject = await Project.findByIdAndUpdate(
+      projectId,
+      { leader: leader },
+      { new: true }
+    );
+  
+    if (!updatedProject) {
+      return console.error('Projeto não encontrado.');
+    }
+  
+    console.log('Administrador do projeto alterado com sucesso.');
+    res.redirect(`/projects/${projectId}`);
   },
   createTask: async (req, res) => {
     const projectId = req.params.id;

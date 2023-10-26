@@ -173,13 +173,25 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                const { leader } = req.body;
+                                <form action="/projects/<%=project._id%>/change-adm" method="POST">
+                                <div class="mb-3">
+                                    <label for="projectLeader" class="form-label">Selecione o novo líder do projeto:</label>
+                                    <select name="leader" id="projectLeader" class="form-select">
+                                        <option hidden></option>
+                                        <% project.members.forEach(member => { %>
+                                            <% if (member !== project.leader) { %>
+                                                <option value="<%= member %>"><%= member %></option>
+                                            <% } %>
+                                        <% }); %>
+                                    </select>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Confirmar</button>
+                                <button type="submit" class="btn btn-primary">Confirmar</button>
                             </div>
+                        </form>
                         </div>
                     </div>
                 </div>
