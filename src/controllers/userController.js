@@ -201,45 +201,76 @@ const userController = {
     }
   },
   addMembers: async (req, res) => {
-    const ProjectId = req.params.id;
+    const projectId = req.params.id;
     const { members } = req.body;
-
-    try {
-      const updatedProject = await Project.findByIdAndUpdate(
-        ProjectId,
-        { $addToSet: { members: members } },
-        { new: true }
-      );
-
-      if (!updatedProject) {
-        return console.error('Tarefa não encontrada');
-      }
-
-      console.log('Membros adicionados com sucesso');
-    } catch (error) {
-      console.error('Erro ao adicionar membros à tarefa:', error);
-      console.error('Erro interno do servidor');
+    const project = await Project.findById(projectId);
+  
+    if (!project) {
+      return console.error('Projeto não encontrado.');
+      
     }
+  
+    if (project.leader !== req.session.userLogged.apelido) {
+      console.error('Você não tem permissão para adicionar membros a este projeto.');
+      return res.status(403, 'Você não tem permissão para adicionar membros a este projeto.');
+    }
+  
+    const membersList = members.split(',').map(member => member.trim());
+    const users = await User.find({ apelido: { $in: membersList } });
+  
+    const errorMembers = [];
+    const existingMembers = project.members;
+  
+    membersList.forEach((member) => {
+      if (!users.find((user) => user.apelido === member)) {
+        errorMembers.push(member + ' (Usuário não existe)');
+      } else if (existingMembers.includes(member)) {
+        errorMembers.push(member + ' (Já é membro deste projeto)');
+      }
+    });
+  
+    if (errorMembers.length > 0) {
+      const errorMessage = 'Erro ao adicionar membros: ' + errorMembers.join(', ');
+      return console.error(errorMessage);
+    }
+  
+    project.members.push(...membersList);
+  
+    if (!membersList.includes(project.leader)) {
+      membersList.push(project.leader);
+    }
+  
+    await project.save();
+    console.log('Membros adicionados com sucesso.');
+    res.redirect(`/projects/${projectId}`);
   },
   removeMembers: async (req, res) => {
-    const ProjectId = req.params.id;
+    const projectId = req.params.id;
     const { members } = req.body;
 
     try {
-      const updatedProject = await Project.findByIdAndUpdate(
-        ProjectId,
-        { $pullAll: { members: members } },
-        { new: true }
-      );
-
-      if (!updatedProject) {
-        return console.error('Tarefa não encontrada');
+      if (!members) {
+        return console.error('Nenhum membro especificado.');
       }
 
-      console.log('Membros removidos com sucesso');
+      const membersList = members.split(',').map(member => member.trim());
+      const project = await Project.findById(projectId);
+
+      if (!project) {
+        return res.status(404);
+      }
+      if (!project.leader.includes(req.session.userLogged.apelido)) {
+        return res.status(403);
+      }
+
+      project.members = project.members.filter(memberApelido => !membersList.includes(memberApelido));
+
+      await project.save();
+
+      console.log('Membros removidos com sucesso.');
+      res.redirect(`/projects/${projectId}`)
     } catch (error) {
-      console.error('Erro ao remover membros da tarefa:', error);
-      console.error('Erro interno do servidor');
+      console.error('Erro ao remover membros do projeto:', error);
     }
   },
   changeAdmProject: async (req, res) => {
