@@ -164,7 +164,7 @@ const userController = {
   },
   updateProject: async (req, res) => {
     const ProjectId = req.params.id;
-    const { name, description } = req.body;
+    const { name, description, deadline } = req.body;
 
     try {
       const updatedProject = await Project.findByIdAndUpdate(
