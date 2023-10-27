@@ -7,6 +7,7 @@
     <title>Nome do Site</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/global.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -125,14 +126,14 @@
                                     <div class="mb-3">
                                         <label for="projectMembers" class="form-label">Membros (Max: 4)</label>
                                         <input type="text" class="form-control" id="projectMembers" name="members">
-                                      </div>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Confirmar</button>
                             </div>
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -151,14 +152,14 @@
                                     <div class="mb-3">
                                         <label for="projectMembers" class="form-label">Membros (Max: 4)</label>
                                         <input type="text" class="form-control" id="projectMembers" name="members">
-                                      </div>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Confirmar</button>
                             </div>
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -174,24 +175,27 @@
                             </div>
                             <div class="modal-body">
                                 <form action="/projects/<%=project._id%>/change-adm" method="POST">
-                                <div class="mb-3">
-                                    <label for="projectLeader" class="form-label">Selecione o novo líder do projeto:</label>
-                                    <select name="leader" id="projectLeader" class="form-select">
-                                        <option hidden></option>
-                                        <% project.members.forEach(member => { %>
-                                            <% if (member !== project.leader) { %>
-                                                <option value="<%= member %>"><%= member %></option>
-                                            <% } %>
-                                        <% }); %>
-                                    </select>
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="projectLeader" class="form-label">Selecione o novo líder do
+                                            projeto:</label>
+                                        <select name="leader" id="projectLeader" class="form-select">
+                                            <option hidden></option>
+                                            <% project.members.forEach(member=> { %>
+                                                <% if (member !==project.leader) { %>
+                                                    <option value="<%= member %>">
+                                                        <%= member %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% }); %>
+                                        </select>
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Confirmar</button>
                             </div>
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -201,43 +205,63 @@
 
                 <div class="row">
                     <!-- Coluna "Pendente" -->
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <h3>Pendente</h3>
                         <hr>
                         <!-- Lista de tarefas pendentes -->
-                        <ul>
-                            <li>Tarefa 1</li>
-                            <li>Tarefa 2</li>
-                            <li>Tarefa 3</li>
-                        </ul>
-                    </div>
+                            <div class="md-4" id="taskCardBackground">
+                                <div class="md-4" id="taskCard">
+                                    <div id="card-header">
+                                        <h5 class="card-title">Nome da Tarefa</h5>
+                                        <p class="card-text">Nome do Criador</p>
+                                    </div>
+                                    <div id="card-content">
+                                        <p class="card-text">Descrição da Tarefa</p>
+                                    </div>
+                                    <div id="card-footer">
+                                        <button class="btn btn-primary rounded-circle">
+                                            <i class="bi bi-caret-right"></i>
+                                        </button>
+                                        <button class="btn btn-secondary rounded-circle">
+                                            <i class="bi bi-chat-left-text-fill"></i>
+                                        </button>
+                                        <button class="btn btn-secondary rounded-circle">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                        <div id="deadlineBackground">
+                                            <p class="card-text">DD/MM/AAAA</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- Coluna "Em Andamento" -->
-                    <div class="col-md-4">
-                        <h3>Em Andamento</h3>
-                        <hr>
-                        <!-- Lista de tarefas em andamento -->
-                        <ul>
-                            <li>Tarefa 4</li>
-                            <li>Tarefa 5</li>
-                        </ul>
-                    </div>
+                        <!-- Coluna "Em Andamento" -->
+                        <div class="col-md-4">
+                            <h3>Em Andamento</h3>
+                            <hr>
+                            <!-- Lista de tarefas em andamento -->
+                            <ul>
+                                <li>Tarefa 4</li>
+                                <li>Tarefa 5</li>
+                            </ul>
+                        </div>
 
-                    <!-- Coluna "Concluída" -->
-                    <div class="col-md-4">
-                        <h3>Concluída</h3>
-                        <hr>
-                        <!-- Lista de tarefas concluídas -->
-                        <ul>
-                            <li>Tarefa 6</li>
-                        </ul>
+                        <!-- Coluna "Concluída" -->
+                        <div class="col-md-4">
+                            <h3>Concluída</h3>
+                            <hr>
+                            <!-- Lista de tarefas concluídas -->
+                            <ul>
+                                <li>Tarefa 6</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Criar Nova Tarefa</a>
-                    <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Editar Tarefa</a>
-                    <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Apagar Tarefa</a>
-                </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Criar Nova Tarefa</a>
+                        <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Editar Tarefa</a>
+                        <a href="/projects/<%=project._id%>/create-task" class="btn btn-success">Apagar Tarefa</a>
+                    </div>
             </main>
         </div>
     </div>

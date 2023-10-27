@@ -5,4 +5,18 @@
     text-decoration: none;
     list-style: none;
 }
+main {
+    background-color: #efefef;
+}
 
+
+#taskCard {
+    background-color: #FFF;
+    margin-left: 2.5px;
+    border-radius: 15px;
+    padding: 2.5px;
+    border-top: 1.5px solid rgba(155, 155, 155, 0.237); /* Borda superior cinza claro e fina */
+    border-right: 2px solid rgba(155, 155, 155, 0.237); /* Borda direita cinza claro e fina */
+    border-bottom: 4px solid rgba(155, 155, 155, 0.237); /* Borda inferior 1px meio transparente e cinza */
+    border-left: 4px solid #00e5ff7e; /* Borda esquerda 0.7px verde */
+}
