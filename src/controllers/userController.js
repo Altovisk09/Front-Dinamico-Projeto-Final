@@ -316,20 +316,21 @@ const userController = {
       if(project.tasks.length >= 15){
       return  console.error('Limite de tarefas do projeto atingido (15)')
       }
-      let {name, deadline, description} = req.body;
-      const creatorTask = req.session.userLogged.apelido;
+      let {taskName, taskDeadline, taskDescription} = req.body;
+      const taskCreator = req.session.userLogged.apelido;
 
       const newTask = new Task({
-        name: name,
-        creator: creatorTask,
-        deadline: deadline, 
-        description: description,      
+        name: taskName,
+        creator: taskCreator,
+        deadline: taskDeadline, 
+        description: taskDescription,      
       });
 
       //Salva a nova tarefa e atrela ao projeto
       const task = await newTask.save();
       project.tasks.push(task._id);
         await project.save();
+        res.redirect(`/projects/${project._id}`)
     }catch(err){
       console.error('Erro ao criar nova tarefa',err)
     }

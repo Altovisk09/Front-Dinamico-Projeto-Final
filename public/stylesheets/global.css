@@ -14,9 +14,117 @@ main {
     background-color: #FFF;
     margin-left: 2.5px;
     border-radius: 15px;
-    padding: 2.5px;
-    border-top: 1.5px solid rgba(155, 155, 155, 0.237); /* Borda superior cinza claro e fina */
-    border-right: 2px solid rgba(155, 155, 155, 0.237); /* Borda direita cinza claro e fina */
-    border-bottom: 4px solid rgba(155, 155, 155, 0.237); /* Borda inferior 1px meio transparente e cinza */
-    border-left: 4px solid #00e5ff7e; /* Borda esquerda 0.7px verde */
+    padding: 10px;
+    border-top: 2px solid rgba(155, 155, 155, 0.237);
+    border-right: 2px solid rgba(155, 155, 155, 0.237);
+    border-bottom: 5px solid rgba(155, 155, 155, 0.237);
+    border-left: 5px solid #05a3ff7e;
+}
+
+#card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+
+#card-header h5{
+    font-size: 18px;
+}
+
+#card-header .creator-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #05a3ff7e; 
+    color: #FFF;     border: 0.5px solid #efefef;
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold; font-size: 20px; 
+}
+
+#card-content {
+    font-size: 14px;
+    color: #bbbbbb;
+}
+
+#card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+}
+
+
+
+#card-footer .btn {
+    background-color: transparent; 
+    border: 0.5px solid #efefef; 
+    color: #555; 
+    border-radius: 50%; 
+    width: 40px;
+    height: 40px;
+}
+
+#card-footer .btn.active {
+    background-color: #00ba82; 
+    color: #FFF; 
+    border: 0.5px solid #05a3ff7e;
+}
+
+#deadlineBackground {
+    background-color: #37a90a;
+    color: #FFF;
+    border: 0.5px solid #efefef;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border: 1px solid #ddd;
+}
+
+.dropdown-content button {
+    padding: 10px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.creator-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #05a3ff7e;
+    color: #FFF;
+    border: 0.5px solid #efefef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
 }

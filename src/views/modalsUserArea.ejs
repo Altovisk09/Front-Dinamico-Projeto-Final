@@ -1,0 +1,172 @@
+<!-- Modal de Atualização de Projeto -->
+<div class="modal fade" id="updateProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Atualizar Projeto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/projects/<%=project._id%>/update-project" method="POST">
+                    <div class="mb-3">
+                        <label for="projectName" class="form-label">Nome do Projeto</label>
+                        <input type="text" class="form-control" id="projectName" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectDeadline" class="form-label">Data de Entrega</label>
+                        <input type="date" class="form-control" id="projectDeadline" name="deadline">
+                    </div>
+                    <div class="mb-3">
+                        <label for="projectDescription" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="projectDescription" name="description"></textarea>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Exclusão de Projeto -->
+<div class="modal fade" id="deleteProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Apagar Projeto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/projects/<%=project._id%>/delete-project" method="POST">
+                    <p>Tem certeza que deseja apagar o projeto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Adição de Membros -->
+<div class="modal fade" id="addMembers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Membros</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/projects/<%=project._id%>/add-members" method="POST">
+                    <div class="mb-3">
+                        <label for="projectMembers" class="form-label">Membros (Max: 4)</label>
+                        <input type="text" class="form-control" id="projectMembers" name="members">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Remoção de Membros -->
+<div class="modal fade" id="removeMembers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Remover Membros</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/projects/<%=project._id%>/remove-members" method="POST">
+                    <div class="mb-3">
+                        <label for="projectMembers" class="form-label">Membros (Max: 4)</label>
+                        <input type="text" class="form-control" id="projectMembers" name="members">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Mudança de Líder do Projeto -->
+<div class="modal fade" id="changeAdm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Mudar Líder do Projeto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/projects/<%=project._id%>/change-adm" method="POST">
+                    <div class="mb-3">
+                        <label for="projectLeader" class="form-label">Selecione o novo líder do projeto:</label>
+                        <select name="leader" id="projectLeader" class="form-select">
+                            <option hidden></option>
+                            <% project.members.forEach(member=> { %>
+                                <% if (member !==project.leader) { %>
+                                    <option value="<%= member %>">
+                                        <%= member %>
+                                    </option>
+                                    <% } %>
+                                        <% }); %>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Criação de Tarefa -->
+<div class="modal fade" id="createTask" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Criar Tarefa Para <%=project.name%>
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/projects/<%=project._id%>/create-task" method="POST">
+                    <div class="mb-3">
+                        <label for="taskName" class="form-label">Nome da tarefa:</label>
+                        <input type="text" class="form-control" name="taskName" id="taskName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="taskDescription" class="form-label">Descrição da tarefa:</label>
+                        <input type="text" class="form-control" name="taskDescription" id="taskDescription">
+                    </div>
+                    <div class="mb-3">
+                        <label for="taskDeadline" class="form-label">Data limite para entrega:</label>
+                        <input type="date" class="form-control" name="taskDeadline" id="taskDeadline">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
