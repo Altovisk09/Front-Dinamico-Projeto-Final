@@ -24,7 +24,7 @@ const tasksSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    maxlength: 100, 
+    maxlength: 300, 
     required: true,
   }
 });
