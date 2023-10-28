@@ -72,14 +72,18 @@
                             <hr>
                             <% tasks.forEach(task=> { %>
                                 <%if (task.state === 'pending') { %>
-                                    <div class="md-4" id="taskCard">
+                                    <% project.members.forEach((member, index) => { %>
+                                        <div class="md-4 task-color-<%= index %>" id="taskCard">
+                                            <% }); %>
                                     <div id="card-header">
                                         <h5 class="card-title">
                                             <%=task.name%>
                                         </h5>
-                                        <div class="creator-circle">
+                                        <% project.members.forEach((member, index) => { %>
+                                            <div class="creator-circle creator-color-<%= index %>">
                                             <%= task.creator.charAt(0).toUpperCase() %>
                                         </div>
+                                        <% }); %>
                                     </div>
                                     <div id="card-content">
                                         <p class="card-text">
@@ -143,14 +147,18 @@
 
                             <% tasks.forEach(task=> { %>
                                 <%if (task.state === 'in progress') { %>
-                                    <div class="md-4" id="taskCard">
+                                    <% project.members.forEach((member, index) => { %>
+                                    <div class="md-4 task-color-<%= index %>" id="taskCard">
+                                        <% }); %>
                                     <div id="card-header">
                                         <h5 class="card-title">
                                             <%=task.name%>
                                         </h5>
-                                        <div class="creator-circle">
+                                        <% project.members.forEach((member, index) => { %>
+                                            <div class="creator-circle creator-color-<%= index %>">
                                             <%= task.creator.charAt(0).toUpperCase() %>
                                         </div>
+                                        <% }); %>
                                     </div>
                                     <div id="card-content">
                                         <p class="card-text">
@@ -212,14 +220,18 @@
                             <hr>
                                 <% tasks.forEach(task => { %>
                                     <%if (task.state === 'completed') { %>
-                                        <div class="md-4" id="taskCard">
+                                        <% project.members.forEach((member, index) => { %>
+                                            <div class="md-4 task-color-<%= index %>" id="taskCard">
+                                                <% }); %>
                                         <div id="card-header">
                                             <h5 class="card-title">
                                                 <%=task.name%>
                                             </h5>
-                                            <div class="creator-circle">
+                                            <% project.members.forEach((member, index) => { %>
+                                                <div class="creator-circle creator-color-<%= index %>">
                                                 <%= task.creator.charAt(0).toUpperCase() %>
                                             </div>
+                                            <% }); %>
                                         </div>
                                         <div id="card-content">
                                             <p class="card-text">

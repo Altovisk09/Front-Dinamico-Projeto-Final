@@ -22,7 +22,6 @@ main {
     border-top: 2px solid rgba(155, 155, 155, 0.237);
     border-right: 2px solid rgba(155, 155, 155, 0.237);
     border-bottom: 5px solid rgba(155, 155, 155, 0.237);
-    border-left: 5px solid #05a3ff7e;
 }
 
 #card-header {
@@ -40,7 +39,6 @@ main {
 #card-header .creator-circle {
     width: 40px;
     height: 40px;
-    background-color: #05a3ff7e; 
     color: #FFF;     border: 0.5px solid #efefef;
     border-radius: 50%; 
     display: flex;
@@ -123,7 +121,6 @@ main {
 .creator-circle {
     width: 40px;
     height: 40px;
-    background-color: #05a3ff7e;
     color: #FFF;
     border: 0.5px solid #efefef;
     border-radius: 50%;
@@ -137,3 +134,36 @@ main {
 .dropdown-item {
     cursor: pointer;
 }
+
+.creator-color-0 {
+    background-color: #05a3ff7e; 
+}
+
+.creator-color-1 {
+    background-color: #fff2007e; 
+}
+
+.creator-color-2{
+    background-color: #ff05e27e; 
+}
+
+.creator-color-3 {
+    background-color: #7eff057e; 
+}
+
+.task-color-0 {
+    border-left: 5px solid #05a3ff7e;
+}
+
+.task-color-1 {
+    border-left: 5px solid #fff2007e;
+}
+
+.task-color-2 {
+    border-left: 5px solid #ff05e27e;
+}
+
+.task-color-3 {
+    border-left: 5px solid #7eff057e;
+}
+
