@@ -85,6 +85,7 @@ main {
     border-radius: 5px;
     padding: 5px;
     font-size: 12px;
+    font-weight: 600;
 }
 .dropdown {
     position: relative;
@@ -131,4 +132,8 @@ main {
     justify-content: center;
     font-weight: bold;
     font-size: 20px;
+}
+
+.dropdown-item {
+    cursor: pointer;
 }
