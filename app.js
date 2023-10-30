@@ -23,12 +23,12 @@ app.use(
   })
 );
 
+// Configurar a pasta de recursos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Configurações da view Engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './src/views'));
-
-// Configurar a pasta de recursos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Lidar com erros internos do servidor
 app.use((err, req, res, next) => {

@@ -1,9 +1,11 @@
 const User = require('../models/users');
 const Project = require('../models/Projects');
+const Task = require('../models/Tasks');
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const createError = require('http-errors');
-const Task = require('../models/Tasks');
+
+
 
 const userController = {
   signup: (req, res) => {
@@ -350,7 +352,7 @@ const userController = {
       // Busque as tarefas associadas a esse projeto
       const tasks = await Task.find({ _id: { $in: project.tasks } });
       
-      res.render('userArea', { userProjects, project, tasks });
+      res.render('userArea', { userProjects, project, tasks});
     } catch (error) {
       console.error('Erro ao buscar tarefas do projeto:', error);
       return res.status(500).send('Erro interno do servidor');
