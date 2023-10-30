@@ -1,0 +1,57 @@
+<% function renderTasks(taskState) { %>
+    <% tasks.forEach((task, index)=> { %>
+        <% if (task.state===taskState && project.members.some(member=> member.apelido === user.apelido)) { %>
+            <div class="md-4 task-color-<%= index %>" id="taskCard">
+                <div id="card-header">
+                    <h5 class="card-title">
+                        <%= task.name %>
+                    </h5>
+                    <% project.members.forEach((member, memberIndex)=> { %>
+                        <div class="creator-circle creator-color-<%= memberIndex %>">
+                            <%= task.creator.charAt(0).toUpperCase() %>
+                        </div>
+                        <% }); %>
+                </div>
+                <div id="card-content">
+                    <p class="card-text">
+                        <%= task.description.length> 80 ? task.description.slice(0, 80) + '...' : task.description %>
+                    </p>
+                </div>
+                <div id="card-footer">
+                    <div id="taskButtons">
+                        <button class="btn btn-primary rounded-circle task-button">
+                            <i class="bi bi-caret-right-fill"></i>
+                        </button>
+                        <button class="btn btn-secondary rounded-circle task-button">
+                            <i class="bi bi-chat-left-text-fill"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button class="btn btn-secondary rounded-circle task-button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Editar Tarefa</a></li>
+                                <li><a class="dropdown-item" href="#">Excluir Tarefa</a></li>
+                                <li>
+                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#taskDescriptionModal<%= task._id %>">
+                                        Ver Mais
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="deadlineBackground">
+                        <% function formatDate(date) { const options={ year: 'numeric' , month: '2-digit' ,
+                            day: '2-digit' }; %>
+                            <p class="card-text">
+                                <%= formatDate(task.deadline) %>
+                            </p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+                <% } %>
+                    <% }) %>
+                        <% } %>
