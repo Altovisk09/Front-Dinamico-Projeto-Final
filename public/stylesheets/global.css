@@ -167,3 +167,6 @@ main {
     border-left: 5px solid #7eff057e;
 }
 
+#taskButtons {
+    display: flex;
+}

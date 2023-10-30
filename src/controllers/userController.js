@@ -358,6 +358,39 @@ const userController = {
       return res.status(500).send('Erro interno do servidor');
     }
   },
+  alterStateTask: async (req, res) => {
+    const projectId = req.params.id;
+    const taskId = req.query.task;
+  
+    try {
+      const task = await Task.findById(taskId);
+  
+      if (!task) {
+        console.error('Tarefa não encontrada');
+        return;
+      }
+  
+      const userApelido = req.session.userLogged.apelido;
+      
+      if (!task.working.includes(userApelido)) {
+        task.working.push(userApelido);
+      } else {
+        const userIndex = task.working.indexOf(userApelido);
+        if (userIndex !== -1) {
+          task.working.splice(userIndex, 1);
+        }
+      }
+  
+      task.state = task.working.length > 0 ? 'in progress' : 'pending';
+  
+      await task.save();
+  
+      res.redirect(`/projects/${projectId}`);
+    } catch (error) {
+      console.error('Erro ao alterar o estado da tarefa:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
   editTask: async (req, res) => {
     const projectId = req.params.id
     const taskId = req.query.task;

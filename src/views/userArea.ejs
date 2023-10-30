@@ -41,32 +41,38 @@
                                     </div>
                                     <div id="card-footer">
                                         <div id="taskButtons">
-                                            <button class="btn btn-primary rounded-circle task-button">
-                                                <i class="bi bi-caret-right-fill"></i>
-                                            </button>
-                                            <button class="btn btn-secondary rounded-circle task-button">
-                                                <i class="bi bi-chat-left-text-fill"></i>
-                                            </button>
-                                            <div class="btn-group">
-                                                <button class="btn btn-secondary rounded-circle task-button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="bi bi-three-dots"></i>
+                                            <form action="/projects/<%=project._id%>/alter-state-task?task=<%=task._id%>" method="POST">
+                                                <button type="submit" class="btn btn-primary rounded-circle task-button">
+                                                    <% if (!task.working.includes(user.apelido)) { %>
+                                                    <i class="bi bi-caret-right-fill"></i>
+                                                    <% } else { %>
+                                                    <i class="bi bi-pause-fill"></i>
+                                                    <% } %>
                                                 </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#taskUpdatenModal<%= task._id %>">Editar
-                                                            Tarefa</a></li>
-                                                    <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#taskDeleteModal<%= task._id %>">Excluir
-                                                            Tarefa</a></li>
-                                                    <li>
-                                                        <a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#taskDescriptionModal<%= task._id %>">
-                                                            Ver Mais
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            </form>
+                                                        <button class="btn btn-secondary rounded-circle task-button">
+                                                            <i class="bi bi-chat-left-text-fill"></i>
+                                                        </button>
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-secondary rounded-circle task-button"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="bi bi-three-dots"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#taskUpdatenModal<%= task._id %>">Editar
+                                                                        Tarefa</a></li>
+                                                                <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#taskDeleteModal<%= task._id %>">Excluir
+                                                                        Tarefa</a></li>
+                                                                <li>
+                                                                    <a class="dropdown-item" data-bs-toggle="modal"
+                                                                        data-bs-target="#taskDescriptionModal<%= task._id %>">
+                                                                        Ver Mais
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                         </div>
                                         <div id="deadlineBackground">
                                             <p class="card-text">
@@ -109,21 +115,23 @@
                                             </div>
                                             <div class="modal-body">
                                                 <!-- Formulário de edição de tarefa -->
-                                                <form action="/projects/<%=project._id%>/edit-task?task=<%=task._id%>" method="POST">
+                                                <form action="/projects/<%=project._id%>/edit-task?task=<%=task._id%>"
+                                                    method="POST">
                                                     <div class="form-group">
                                                         <label for="name">Nome da Tarefa</label>
-                                                        <input type="text" class="form-control" name="name" id="taskName"
-                                                            value="<%= task.name %>">
+                                                        <input type="text" class="form-control" name="name"
+                                                            id="taskName" value="<%= task.name %>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="description">Descrição</label>
-                                                        <textarea class="form-control" name="description" id="taskDescription"
+                                                        <textarea class="form-control" name="description"
+                                                            id="taskDescription"
                                                             rows="3"><%= task.description %></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="deadline">Prazo</label>
-                                                        <input type="date" class="form-control" name="deadline" id="taskDeadline"
-                                                            value="<%=task.deadline%>">
+                                                        <input type="date" class="form-control" name="deadline"
+                                                            id="taskDeadline" value="<%=task.deadline%>">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -156,9 +164,10 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Cancelar</button>
-                                                    <form action="/projects/<%=project._id%>/delete-task?task=<%=task._id%>" method="POST">
-                                                <button type="submit" class="btn btn-danger"
-                                                    id="deleteTask">Excluir</button>
+                                                <form action="/projects/<%=project._id%>/delete-task?task=<%=task._id%>"
+                                                    method="POST">
+                                                    <button type="submit" class="btn btn-danger"
+                                                        id="deleteTask">Excluir</button>
                                                 </form>
                                             </div>
                                         </div>
