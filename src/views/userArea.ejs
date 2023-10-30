@@ -2,86 +2,91 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nome do Site</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/stylesheets/global.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <script src="/javascript/taskStructure.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nome do Site</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/global.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="/javascript/taskStructure.js"></script>
 </head>
 
 <body>
-  <%-include('./modalsUserArea.ejs')%>
+    <%-include('./modalsUserArea.ejs')%>
 
-  <!-- Funcao -->
-  <% function formatDate(date) { 
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' }; 
-    return new Date(date).toLocaleDateString('pt-BR', options);
-  } %>
-  <% function renderTask(state){ %>
-    <% tasks.forEach(task=> { %>
-      <% if(task.state === state) { %>
-        <% project.members.forEach((member, index)=> { %>
-          <% if (member === task.creator) { %>
-            <div class="md-4  task-color-<%= index %>" id="taskCard">
-              
-              <div id="card-header">
-                <h5 class="card-title">
-                  <%= task.name %>
-                </h5>
-                <div class="creator-circle creator-color-<%= index %>">
-                  <%= task.creator.charAt(0).toUpperCase() %>
-                </div>
+        <!-- Funcao -->
+        <% function formatDate(date) { const options={ year: 'numeric' , month: '2-digit' , day: '2-digit' }; return new
+            Date(date).toLocaleDateString('pt-BR', options); } %>
+            <% function renderTask(state){ %>
+                <% tasks.forEach(task=> { %>
+                    <% if(task.state===state) { %>
+                        <% project.members.forEach((member, index)=> { %>
+                            <% if (member===task.creator) { %>
+                                <div class="md-4  task-color-<%= index %>" id="taskCard">
 
-              </div>
-              <div id="card-content">
-                <p class="card-text">
-                  <%= task.description.length> 80 ? task.description.slice(0, 80) + '...' : task.description %>
-                </p>
-              </div>
-              <div id="card-footer">
-                <div id="taskButtons">
-                  <button class="btn btn-primary rounded-circle task-button">
-                    <i class="bi bi-caret-right-fill"></i>
-                  </button>
-                  <button class="btn btn-secondary rounded-circle task-button">
-                    <i class="bi bi-chat-left-text-fill"></i>
-                  </button>
-                  <div class="btn-group">
-                    <button class="btn btn-secondary rounded-circle task-button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" data-bs-toggle="modal"
-                          data-bs-target="#taskUpdatenModal<%= task._id %>">Editar Tarefa</a></li>
-                      <li><a class="dropdown-item" data-bs-toggle="modal"
-                          data-bs-target="#taskDeleteModal<%= task._id %>">Excluir Tarefa</a></li>
-                      <li>
-                        <a class="dropdown-item" data-bs-toggle="modal"
-                          data-bs-target="#taskDescriptionModal<%= task._id %>">
-                          Ver Mais
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div id="deadlineBackground">
-                  <p class="card-text">
-                      <%= formatDate(task.deadline) %>   
-                  </p>
-                </div>
-              </div>
-            </div>
+                                    <div id="card-header">
+                                        <h5 class="card-title">
+                                            <%= task.name %>
+                                        </h5>
+                                        <div class="creator-circle creator-color-<%= index %>">
+                                            <%= task.creator.charAt(0).toUpperCase() %>
+                                        </div>
 
-            <!-- Modal para a descrição completa da tarefa -->
-            <div class="modal fade" id="taskDescriptionModal<%= task._id %>" tabindex="-1" aria-labelledby="taskDescriptionModalLabel" aria-hidden="true">
+                                    </div>
+                                    <div id="card-content">
+                                        <p class="card-text">
+                                            <%= task.description.length> 80 ? task.description.slice(0, 80) + '...' :
+                                                task.description %>
+                                        </p>
+                                    </div>
+                                    <div id="card-footer">
+                                        <div id="taskButtons">
+                                            <button class="btn btn-primary rounded-circle task-button">
+                                                <i class="bi bi-caret-right-fill"></i>
+                                            </button>
+                                            <button class="btn btn-secondary rounded-circle task-button">
+                                                <i class="bi bi-chat-left-text-fill"></i>
+                                            </button>
+                                            <div class="btn-group">
+                                                <button class="btn btn-secondary rounded-circle task-button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bi bi-three-dots"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#taskUpdatenModal<%= task._id %>">Editar
+                                                            Tarefa</a></li>
+                                                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#taskDeleteModal<%= task._id %>">Excluir
+                                                            Tarefa</a></li>
+                                                    <li>
+                                                        <a class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#taskDescriptionModal<%= task._id %>">
+                                                            Ver Mais
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="deadlineBackground">
+                                            <p class="card-text">
+                                                <%= formatDate(task.deadline) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal para a descrição completa da tarefa -->
+                                <div class="modal fade" id="taskDescriptionModal<%= task._id %>" tabindex="-1"
+                                    aria-labelledby="taskDescriptionModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="taskDescriptionModalLabel"><%= task.name %></h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="taskDescriptionModalLabel">
+                                                    <%= task.name %>
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <%= task.description %>
@@ -91,149 +96,175 @@
                                 </div>
 
                                 <!-- Modal para editar tarefa -->
-<div class="modal fade" id="taskUpdatenModal<%= task._id %>" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="editTaskModalLabel">Editar Tarefa</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <!-- Formulário de edição de tarefa -->
-              <form>
-                  <div class="form-group">
-                      <label for="editTaskName">Nome da Tarefa</label>
-                      <input type="text" class="form-control" id="editTaskName" value="<%= task.name %>">
-                  </div>
-                  <div class="form-group">
-                      <label for="editTaskDescription">Descrição</label>
-                      <textarea class="form-control" id="editTaskDescription" rows="3"><%= task.description %></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label for="editTaskDeadline">Prazo</label>
-                      <input type="date" class="form-control" id="editTaskDeadline" value="<%= formatDate(task.deadline) %>">
-                  </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-primary" id="saveTaskChanges">Salvar Alterações</button>
-          </div>
-      </div>
-  </div>
-</div>
-
-<!-- Modal para excluir tarefa -->
-<div class="modal fade" id="taskDeleteModal<%= task._id %>" tabindex="-1" role="dialog" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="deleteTaskModalLabel">Excluir Tarefa</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <p>Tem certeza de que deseja excluir esta tarefa? Essa ação não pode ser desfeita.</p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-danger" id="deleteTask">Excluir</button>
-          </div>
-      </div>
-  </div>
-</div>
-
-            <% } %>
-              <% }) %>
-                <% } %>
-                  <% }) %>
-                    <% } %>
-                      
-                    <!-- Estrutura -->
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                          <a class="navbar-brand" href="/">TaskManager</a>
-                          <form class="d-flex flex-grow-1">
-                            <input class="form-control mr-2" type="search" placeholder="Pesquisar"
-                              aria-label="Pesquisar">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
-                          </form>
-                          <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown">
-                              <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <%= user.nome %>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">Configurações</a>
-                                <a class="dropdown-item" href="/logout">Sair</a>
-                              </div>
-                            </li>
-                          </ul>
-                        </nav>
-                        <div class="container mt-4">
-                          <div class="row">
-                            <aside class="col-md-2">
-                              <h2>Projetos</h2>
-                              <ul class="list-group" style="max-height: 200px; overflow-y: auto;">
-                                <% userProjects.forEach(project=> { %>
-                                  <li class="list-group-item"><a href="/projects/<%= project._id %>">
-                                      <%= project.name %>
-                                    </a></li>
-                                  <% }); %>
-                              </ul>
-                              <div class="row justify-content-end">
-                                <button class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                  data-bs-target="#updateProject">Editar
-                                  Projeto</button>
-                                <button class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                  data-bs-target="#deleteProject">Apagar
-                                  Projeto</button>
-                                <button class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                  data-bs-target="#addMembers">Adicionar
-                                  Membros</button>
-                                <button class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                  data-bs-target="#removeMembers">Apagar
-                                  Membros</button>
-                                <button class="btn btn-primary mt-3" data-bs-toggle="modal"
-                                  data-bs-target="#changeAdm">Trocar Líder do Projeto</button>
-                              </div>
-                            </aside>
-                            <main class="col-md-10">
-                              <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                                <li class="nav-item" role-presentation="">
-                                  <button class="btn btn-success" data-bs-toggle="modal"
-                                    data-bs-target="#createTask">Criar
-                                    Nova
-                                    Tarefa</button>
-                                </li>
-                              </ul>
-                              <div class="row">
-                                <div class="col-md-4" id="pending">
-                                  <h3>Pendente</h3>
-                                  <hr>
-                                  <%= renderTask('pending') %>
+                                <div class="modal fade" id="taskUpdatenModal<%= task._id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="editTaskModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editTaskModalLabel">Editar Tarefa</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Formulário de edição de tarefa -->
+                                                <form action="/projects/<%=project._id%>?task=<%=task._id%>" method="POST">
+                                                    <div class="form-group">
+                                                        <label for="name">Nome da Tarefa</label>
+                                                        <input type="text" class="form-control" name="name" id="taskName"
+                                                            value="<%= task.name %>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Descrição</label>
+                                                        <textarea class="form-control" name="description" id="taskDescription"
+                                                            rows="3"><%= task.description %></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="deadline">Prazo</label>
+                                                        <input type="date" class="form-control" name="deadline" id="taskDeadline"
+                                                            value="<%=task.deadline%>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-primary"
+                                                            id="saveTaskChanges">Salvar Alterações</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="col-md-4" id="in progress">
-                                  <h3>Em Andamento</h3>
-                                  <hr>
-                                  <%= renderTask('in progress') %>
+                                <!-- Modal para excluir tarefa -->
+                                <div class="modal fade" id="taskDeleteModal<%= task._id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteTaskModalLabel">Excluir Tarefa</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Tem certeza de que deseja excluir esta tarefa? Essa ação não pode ser
+                                                    desfeita.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    id="deleteTask">Excluir</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="col-md-4" id="completed">
-                                  <h3>Concluída</h3>
-                                  <hr>
-                                  <%= renderTask('completed') %>
-                                </div>
-                              </div>
-                            </main>
-                          </div>
-                        </div>
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-                          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-                          crossorigin="anonymous"></script>
-                        <script src="/javascript/styleButton.js"></script>
+                                <% } %>
+                                    <% }) %>
+                                        <% } %>
+                                            <% }) %>
+                                                <% } %>
+
+                                                    <!-- Estrutura -->
+                                                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                                        <a class="navbar-brand" href="/">TaskManager</a>
+                                                        <form class="d-flex flex-grow-1">
+                                                            <input class="form-control mr-2" type="search"
+                                                                placeholder="Pesquisar" aria-label="Pesquisar">
+                                                            <button class="btn btn-outline-success my-2 my-sm-0"
+                                                                type="submit">Pesquisar</button>
+                                                        </form>
+                                                        <ul class="navbar-nav ml-auto">
+                                                            <li class="nav-item dropdown">
+                                                                <a class="dropdown-toggle" type="button"
+                                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <%= user.nome %>
+                                                                </a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="userDropdown">
+                                                                    <a class="dropdown-item" href="#">Configurações</a>
+                                                                    <a class="dropdown-item" href="/logout">Sair</a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                    <div class="container mt-4">
+                                                        <div class="row">
+                                                            <aside class="col-md-2">
+                                                                <h2>Projetos</h2>
+                                                                <ul class="list-group"
+                                                                    style="max-height: 200px; overflow-y: auto;">
+                                                                    <% userProjects.forEach(project=> { %>
+                                                                        <li class="list-group-item"><a
+                                                                                href="/projects/<%= project._id %>">
+                                                                                <%= project.name %>
+                                                                            </a></li>
+                                                                        <% }); %>
+                                                                </ul>
+                                                                <div class="row justify-content-end">
+                                                                    <button class="btn btn-primary mt-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#updateProject">Editar
+                                                                        Projeto</button>
+                                                                    <button class="btn btn-primary mt-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#deleteProject">Apagar
+                                                                        Projeto</button>
+                                                                    <button class="btn btn-primary mt-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#addMembers">Adicionar
+                                                                        Membros</button>
+                                                                    <button class="btn btn-primary mt-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#removeMembers">Apagar
+                                                                        Membros</button>
+                                                                    <button class="btn btn-primary mt-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#changeAdm">Trocar Líder do
+                                                                        Projeto</button>
+                                                                </div>
+                                                            </aside>
+                                                            <main class="col-md-10">
+                                                                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                                                                    <li class="nav-item" role-presentation="">
+                                                                        <button class="btn btn-success"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#createTask">Criar
+                                                                            Nova
+                                                                            Tarefa</button>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="row">
+                                                                    <div class="col-md-4" id="pending">
+                                                                        <h3>Pendente</h3>
+                                                                        <hr>
+                                                                        <%= renderTask('pending') %>
+                                                                    </div>
+
+                                                                    <div class="col-md-4" id="in progress">
+                                                                        <h3>Em Andamento</h3>
+                                                                        <hr>
+                                                                        <%= renderTask('in progress') %>
+                                                                    </div>
+
+                                                                    <div class="col-md-4" id="completed">
+                                                                        <h3>Concluída</h3>
+                                                                        <hr>
+                                                                        <%= renderTask('completed') %>
+                                                                    </div>
+                                                                </div>
+                                                            </main>
+                                                        </div>
+                                                    </div>
+                                                    <script
+                                                        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                                                        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                                                        crossorigin="anonymous"></script>
+                                                    <script src="/javascript/styleButton.js"></script>
 </body>
+
 </html>

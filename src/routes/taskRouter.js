@@ -11,7 +11,7 @@ router.post('/:id/add-members', notAuthenticated, projectController.addMembers);
 router.post('/:id/remove-members', notAuthenticated, projectController.removeMembers);
 router.post('/:id/change-adm', notAuthenticated, projectController.changeAdmProject);
 router.post('/:id/create-task', notAuthenticated, projectController.createTask);
-
+router.post('/:id', notAuthenticated, projectController.editTask);
 
 
 module.exports = router;

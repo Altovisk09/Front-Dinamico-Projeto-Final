@@ -358,6 +358,43 @@ const userController = {
       return res.status(500).send('Erro interno do servidor');
     }
   },
+  editTask: async (req, res) => {
+    const projectId = req.params.id
+    const taskId = req.query.task;
+    
+    const {name, description, deadline} = req.body;
+    try {
+      const task = await Task.findByIdAndUpdate(taskId,
+      { name, description, deadline },
+        { new: true }
+      );
+      
+      if (!task) {
+        return console.error('Tarefa não encontrada');
+      }
+
+      res.redirect(`/projects/${projectId}`);
+    } catch (error) {
+      console.error('Erro ao editar tarefa:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
+  updateTask: async (req, res) => {
+    const taskId = req.params.id;
+    
+    try {
+      const task = await Task.findById(taskId);
+      
+      if (!task) {
+        return console.error('Tarefa não encontrada');
+      }
+      
+     
+    } catch (error) {
+      console.error('Erro ao editar tarefa:', error);
+      res.status(500).send('Erro interno do servidor');
+    }
+  },
 };
 
 module.exports = userController;
