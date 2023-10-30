@@ -30,8 +30,6 @@
                 <h5 class="card-title">
                   <%= task.name %>
                 </h5>
-
-
                 <div class="creator-circle creator-color-<%= index %>">
                   <%= task.creator.charAt(0).toUpperCase() %>
                 </div>
@@ -56,8 +54,10 @@
                       <i class="bi bi-three-dots"></i>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Editar Tarefa</a></li>
-                      <li><a class="dropdown-item" href="#">Excluir Tarefa</a></li>
+                      <li><a class="dropdown-item" data-bs-toggle="modal"
+                          data-bs-target="#taskUpdatenModal<%= task._id %>">Editar Tarefa</a></li>
+                      <li><a class="dropdown-item" data-bs-toggle="modal"
+                          data-bs-target="#taskDeleteModal<%= task._id %>">Excluir Tarefa</a></li>
                       <li>
                         <a class="dropdown-item" data-bs-toggle="modal"
                           data-bs-target="#taskDescriptionModal<%= task._id %>">
@@ -89,6 +89,63 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Modal para editar tarefa -->
+<div class="modal fade" id="taskUpdatenModal<%= task._id %>" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="editTaskModalLabel">Editar Tarefa</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <!-- Formulário de edição de tarefa -->
+              <form>
+                  <div class="form-group">
+                      <label for="editTaskName">Nome da Tarefa</label>
+                      <input type="text" class="form-control" id="editTaskName" value="<%= task.name %>">
+                  </div>
+                  <div class="form-group">
+                      <label for="editTaskDescription">Descrição</label>
+                      <textarea class="form-control" id="editTaskDescription" rows="3"><%= task.description %></textarea>
+                  </div>
+                  <div class="form-group">
+                      <label for="editTaskDeadline">Prazo</label>
+                      <input type="date" class="form-control" id="editTaskDeadline" value="<%= formatDate(task.deadline) %>">
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" id="saveTaskChanges">Salvar Alterações</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal para excluir tarefa -->
+<div class="modal fade" id="taskDeleteModal<%= task._id %>" tabindex="-1" role="dialog" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteTaskModalLabel">Excluir Tarefa</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>Tem certeza de que deseja excluir esta tarefa? Essa ação não pode ser desfeita.</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger" id="deleteTask">Excluir</button>
+          </div>
+      </div>
+  </div>
+</div>
+
             <% } %>
               <% }) %>
                 <% } %>
