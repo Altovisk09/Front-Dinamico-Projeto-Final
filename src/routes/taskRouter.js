@@ -13,6 +13,6 @@ router.post('/:id/change-adm', notAuthenticated, projectController.changeAdmProj
 router.post('/:id/create-task', notAuthenticated, projectController.createTask);
 router.post('/:id/edit-task', notAuthenticated, projectController.editTask);
 router.post('/:id/delete-task', notAuthenticated, projectController.deleteTask);
-router.post('/:id/alter-state-task', notAuthenticated, projectController.alterStateTask);
 
+router.post('/:id/alter-state-task', notAuthenticated, projectController.alterStateTask);
 module.exports = router;
