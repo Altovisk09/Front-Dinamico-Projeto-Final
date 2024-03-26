@@ -1,4 +1,4 @@
-const Users = require('../models/users');
+const Users = require('../models/Users');
 
 function sessionValidation(req, res, next) {
     const userFromSession = req.session.user ? req.session.user.email : null;
