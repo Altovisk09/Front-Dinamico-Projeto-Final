@@ -1,4 +1,4 @@
-const User = require('../models/users');
+const User = require('../models/Users');
 const Project = require('../models/Projects');
 const Task = require('../models/Tasks');
 const bcrypt = require('bcrypt');
